@@ -38,10 +38,19 @@ namespace PolicyDistrictsHighlighting
         [RedirectMethod]
         protected override bool CustomRefreshPanel()
         {
-            this.CreateGroupItem(new GeneratedGroupPanel.GroupInfo("DistrictSpecializationPaint", this.GetCategoryOrder(this.name), "District"), "DISTRICT_CATEGORY");
-            this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationIndustrial", this.GetCategoryOrder(this.name), UnlockManager.Feature.IndustrySpecializations, "District"), "DISTRICT_CATEGORY");
-            if (Singleton<DistrictManager>.instance.IsPolicyLoaded(DistrictPolicies.Policies.Leisure))
-                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder(this.name), UnlockManager.Feature.CommercialSpecialization, "District"), "DISTRICT_CATEGORY");
+            bool flag1 = SteamHelper.IsDLCOwned(SteamHelper.DLC.AfterDarkDLC);
+            bool flag2 = SteamHelper.IsDLCOwned(SteamHelper.DLC.GreenCitiesDLC);
+            this.CreateGroupItem(new GeneratedGroupPanel.GroupInfo("DistrictSpecializationPaint", this.GetCategoryOrder("DistrictSpecializationPaint"), "District"), "DISTRICT_CATEGORY");
+            this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationIndustrial", this.GetCategoryOrder("DistrictSpecializationIndustrial"), UnlockManager.Feature.IndustrySpecializations, "District"), "DISTRICT_CATEGORY");
+            if (flag2)
+                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder("DistrictSpecializationCommercial"), UnlockManager.Feature.CommercialSpecializationGC, "District"), "DISTRICT_CATEGORY");
+            else if (flag1)
+                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder("DistrictSpecializationCommercial"), UnlockManager.Feature.CommercialSpecialization, "District"), "DISTRICT_CATEGORY");
+            if (flag2)
+            {
+                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationOffice", this.GetCategoryOrder("DistrictSpecializationOffice"), UnlockManager.Feature.OfficeSpecializations, "District"), "DISTRICT_CATEGORY");
+                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationResidential", this.GetCategoryOrder("DistrictSpecializationResidential"), UnlockManager.Feature.ResidentialSpecializations, "District"), "DISTRICT_CATEGORY");
+            }
             //begin mod
             SetupEvents("Paint", DistrictPolicies.Policies.None);
             SetupEvents("Erase", DistrictPolicies.Policies.None);
@@ -50,9 +59,23 @@ namespace PolicyDistrictsHighlighting
             SetupEvents("SpecializationOil", DistrictPolicies.Policies.Oil);
             SetupEvents("SpecializationOre", DistrictPolicies.Policies.Ore);
             SetupEvents("SpecializationNone", DistrictPolicies.Policies.None);
-            SetupEvents("SpecializationTourist", DistrictPolicies.Policies.Tourist);
-            SetupEvents("SpecializationLeisure", DistrictPolicies.Policies.Leisure);
-            SetupEvents("SpecializationCommercialNone", DistrictPolicies.Policies.None);
+            if (flag1)
+            {
+                SetupEvents("SpecializationTourist", DistrictPolicies.Policies.Tourist);
+                SetupEvents("SpecializationLeisure", DistrictPolicies.Policies.Leisure);
+            }
+            if (flag1 || flag2)
+            {
+                SetupEvents("SpecializationCommercialNone", DistrictPolicies.Policies.None);
+            }
+            if (flag2)
+            {
+                SetupEvents("SpecializationOrganic", DistrictPolicies.Policies.Organic);
+                SetupEvents("SpecializationSelfsufficient", DistrictPolicies.Policies.Selfsufficient);
+                SetupEvents("SpecializationResidentialNone", DistrictPolicies.Policies.None);
+                SetupEvents("SpecializationHightech", DistrictPolicies.Policies.Hightech);
+                SetupEvents("SpecializationOfficeNone", DistrictPolicies.Policies.None);
+            }
             //end mod
             return true;
         }

@@ -67,20 +67,19 @@ namespace PolicyDistrictsHighlighting
             uiPanel.objectUserData = (object)this;
             uiPanel.isEnabled = isEnabled;
             UIButton uiButton = uiPanel.Find<UIButton>("PolicyButton");
-            uiButton.text = Locale.Get("POLICIES", name);
+            uiButton.text = ColossalFramework.Globalization.Locale.Get("POLICIES", name);
             string str = "IconPolicy" + name;
             uiButton.pivot = this.m_DockingPosition != PoliciesPanel.DockingPosition.Left ? UIPivotPoint.TopLeft : UIPivotPoint.TopRight;
             if (isEnabled)
             {
                 uiButton.tooltipBox = (UIComponent)_policiesTooltipPropertyInfo.GetValue(this, null);
-                uiButton.tooltip = TooltipHelper.Format("title", Locale.Get("POLICIES", name), "text", Locale.Get("POLICIES_DETAIL", name));
+                uiButton.tooltip = TooltipHelper.Format("title", ColossalFramework.Globalization.Locale.Get("POLICIES", name), "text", ColossalFramework.Globalization.Locale.Get("POLICIES_DETAIL", name));
             }
             else
             {
                 uiButton.tooltipBox = (UIComponent)_defaultTooltipPropertyInfo.GetValue(this, null);
-                uiButton.tooltip = Locale.Get("POLICIES", name) + " - " + unlockText;
+                uiButton.tooltip = ColossalFramework.Globalization.Locale.Get("POLICIES", name) + " - " + unlockText;
             }
-            uiButton.eventTooltipShow += (TooltipEventHandler)((sender, p) => p.tooltip.zOrder = this.component.zOrder - 1);
             //begin mod
             uiButton.eventTooltipEnter += (sender, p) =>
             {
