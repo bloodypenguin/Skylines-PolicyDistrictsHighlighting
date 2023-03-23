@@ -40,16 +40,21 @@ namespace PolicyDistrictsHighlighting
         {
             bool flag1 = SteamHelper.IsDLCOwned(SteamHelper.DLC.AfterDarkDLC);
             bool flag2 = SteamHelper.IsDLCOwned(SteamHelper.DLC.GreenCitiesDLC);
+            bool flag3 = SteamHelper.IsDLCOwned(SteamHelper.DLC.PlazasAndPromenadesDLC);
+            bool flag4 = SteamHelper.IsDLCOwned(SteamHelper.DLC.FinancialDistrictsDLC);
             this.CreateGroupItem(new GeneratedGroupPanel.GroupInfo("DistrictSpecializationPaint", this.GetCategoryOrder("DistrictSpecializationPaint"), "District"), "DISTRICT_CATEGORY");
-            this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationIndustrial", this.GetCategoryOrder("DistrictSpecializationIndustrial"), UnlockManager.Feature.IndustrySpecializations, "District"), "DISTRICT_CATEGORY");
-            if (flag2)
-                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder("DistrictSpecializationCommercial"), UnlockManager.Feature.CommercialSpecializationGC, "District"), "DISTRICT_CATEGORY");
-            else if (flag1)
-                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder("DistrictSpecializationCommercial"), UnlockManager.Feature.CommercialSpecialization, "District"), "DISTRICT_CATEGORY");
-            if (flag2)
+            this.CreateGroupItem((GeneratedGroupPanel.GroupInfo) new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationIndustrial", this.GetCategoryOrder("DistrictSpecializationIndustrial"), UnlockManager.Feature.IndustrySpecializations, "District"), "DISTRICT_CATEGORY");
+            if (flag2 || flag1 || flag3)
             {
-                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationOffice", this.GetCategoryOrder("DistrictSpecializationOffice"), UnlockManager.Feature.OfficeSpecializations, "District"), "DISTRICT_CATEGORY");
-                this.CreateGroupItem((GeneratedGroupPanel.GroupInfo)new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationResidential", this.GetCategoryOrder("DistrictSpecializationResidential"), UnlockManager.Feature.ResidentialSpecializations, "District"), "DISTRICT_CATEGORY");
+              UnlockManager.Feature feature = !flag2 ? (!flag1 ? (!flag3 ? UnlockManager.Feature.CommercialSpecialization : UnlockManager.Feature.WallToWallSpecializations) : UnlockManager.Feature.CommercialSpecialization) : UnlockManager.Feature.CommercialSpecializationGC;
+              this.CreateGroupItem((GeneratedGroupPanel.GroupInfo) new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationCommercial", this.GetCategoryOrder("DistrictSpecializationCommercial"), feature, "District"), "DISTRICT_CATEGORY");
+            }
+            if (flag2 || flag3 || flag4)
+              this.CreateGroupItem((GeneratedGroupPanel.GroupInfo) new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationOffice", this.GetCategoryOrder("DistrictSpecializationOffice"), UnlockManager.Feature.OfficeSpecializations, "District"), "DISTRICT_CATEGORY");
+            if (flag2 || flag3)
+            {
+              UnlockManager.Feature feature = !flag2 ? (!flag3 ? UnlockManager.Feature.ResidentialSpecializations : UnlockManager.Feature.WallToWallSpecializations) : UnlockManager.Feature.ResidentialSpecializations;
+              this.CreateGroupItem((GeneratedGroupPanel.GroupInfo) new DistrictGroupPanel.PTGroupInfo("DistrictSpecializationResidential", this.GetCategoryOrder("DistrictSpecializationResidential"), feature, "District"), "DISTRICT_CATEGORY");
             }
             //begin mod
             SetupEvents("Paint", DistrictPolicies.Policies.None);
