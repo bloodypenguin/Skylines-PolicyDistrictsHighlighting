@@ -69,16 +69,32 @@ namespace PolicyDistrictsHighlighting
                 SetupEvents("SpecializationTourist", DistrictPolicies.Policies.Tourist);
                 SetupEvents("SpecializationLeisure", DistrictPolicies.Policies.Leisure);
             }
-            if (flag1 || flag2)
-            {
-                SetupEvents("SpecializationCommercialNone", DistrictPolicies.Policies.None);
-            }
             if (flag2)
             {
                 SetupEvents("SpecializationOrganic", DistrictPolicies.Policies.Organic);
                 SetupEvents("SpecializationSelfsufficient", DistrictPolicies.Policies.Selfsufficient);
-                SetupEvents("SpecializationResidentialNone", DistrictPolicies.Policies.None);
                 SetupEvents("SpecializationHightech", DistrictPolicies.Policies.Hightech);
+            }
+            if (flag3)
+            {
+                SetupEvents("SpecializationCommercialWallToWall", DistrictPolicies.Policies.CommercialWallToWall);
+                SetupEvents("SpecializationOfficeWallToWall", DistrictPolicies.Policies.OfficeWallToWall);
+                SetupEvents("SpecializationResidentialWallToWall", DistrictPolicies.Policies.ResidentialWallToWall);
+            }
+            if (flag4)
+            {
+                SetupEvents("SpecializationFinancial", DistrictPolicies.Policies.Financial);
+            }
+            if (flag1 || flag2 || flag3)
+            {
+                SetupEvents("SpecializationCommercialNone", DistrictPolicies.Policies.None);
+            }
+            if (flag2 || flag3)
+            {
+                SetupEvents("SpecializationResidentialNone", DistrictPolicies.Policies.None);
+            }
+            if (flag2 || flag3 || flag4)
+            {
                 SetupEvents("SpecializationOfficeNone", DistrictPolicies.Policies.None);
             }
             //end mod
